@@ -1,0 +1,5 @@
+﻿  lab_2_R.cpp
+C:\Users\study\source\repos\lab_2_R\lab_2_R\lab_2_R.cpp(35,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\study\source\repos\lab_2_R\lab_2_R\lab_2_R.cpp(44,29): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\study\source\repos\lab_2_R\lab_2_R\lab_2_R.cpp(46,36): warning C4018: >: несоответствие типов со знаком и без знака
+  lab_2_R.vcxproj -> C:\Users\study\source\repos\lab_2_R\x64\Debug\lab_2_R.exe

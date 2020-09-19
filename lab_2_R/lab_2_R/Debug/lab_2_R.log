@@ -1,0 +1,3 @@
+﻿  lab_2_R.cpp
+C:\Users\study\source\repos\lab_2_R\lab_2_R\lab_2_R.cpp(21,18): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+  lab_2_R.vcxproj -> C:\Users\study\source\repos\lab_2_R\Debug\lab_2_R.exe
