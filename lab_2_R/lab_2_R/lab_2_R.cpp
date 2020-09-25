@@ -54,9 +54,62 @@ int main()
 
 
 
-    cout << "Welcome to Casino 777";
-    int balance = 1000;
-    srand(time(0));
+    cout << "\n" << "Welcome to Casino 777" << endl;
+    int balance = 1000;                                                        /*инициализация баланса*/
+    int bet;                                                                   /*инициализация ставки*/
+    bool flag_2 = true;
+    cout << "WARNING!!!" << "\n" << "Азартные игры очень опасны и затягивают" << endl;
+    cout << "ПРАВИЛА: " << endl;
+    cout << "Если вы угадаете число, то ставка увеличится в 4 раза, если попадёте в диапазон +-2, то в 2. В случае неверного выбора ставка сгорит" << endl;
+    cout << "Ваш баланс: " << balance << endl;
+    while (flag_2) {                                                  
+        cout << "Сделайте вашу ставку: ";
+        cin >> bet;
+        int r_numb = rand() % 22;                                            /*генерация случайного числа в диапазоне*/
+        cout << "r_numb is " << r_numb << endl;                              /*вывод числа для проверки алгоритмов*/
+        int user_num;                                                        /*инициализация переменной выбора пользователя*/
+        cout << "Выберите число от 0 до 21: ";
+        cin >> user_num;
+        if (user_num == r_numb) {                                            /*условие для равенства загаданного числа и выбора пользователя*/
+            bet *= 4;
+            cout << "Вы угадали" << endl;
+            balance += bet;
+            cout << "Ваш баланс: " << balance << endl;
+        }
+        else if ((user_num == r_numb - 1) or (user_num == r_numb - 2) or (user_num == r_numb + 1) or (user_num == r_numb + 2)) { /*условие для попадания числа пользователя в диапазон*/
+            bet *= 2;
+            cout << "Вы были очень близки" << endl;
+            balance += bet;
+            cout << "Ваш баланс: " << balance << endl;
+        }
+        else {                                                                /*условие для числа пользователя вне диапазона*/
+            balance -= bet;
+            cout << "Вы не угадали, ваш баланс: " << balance << endl;
+        } if (balance > 0 and balance < 3000) {                                     /*проверка текущего состояния баланса пользователя*/
+            string user_answer;
+            bool flag_3 = true;                                                     /*цикл при допустимом баланса*/
+            while (flag_3) {
+                cout << "Желаете продолжить?[yes/no]: ";
+                cin >> user_answer;
+                if (user_answer == "no") {                                          /*выход из циклов и прерывание игры*/
+                    flag_2 = false;
+                    flag_3 = false;
+                }
+                else if (user_answer == "yes") {                                    /*прерывание цикла для ответов пользователя и продолжение игры*/
+                    flag_3 = false;
+                }
+                else {                                                              /*условие на случай непредусмотренного ответа*/
+                    cout << "Uncorrect value, please repeat input" << endl;
+                }
+            }
+        } else if (balance == 0) {                                                  /*условие для баланса < 0*/
+            cout << "На вашем балансе недостаточно средств для продолжения игры";
+            flag_2 = false;                                                         /*прерывание цикла и выход из игры*/
+        } else if (balance >= 3000) {                                               /*условие для баланса > 0*/
+            cout << "Вы набрали максимум";
+            flag_2 = false;                                                         /*прерывание цикла и выход из игры*/
+        }
+    }
 
 
 }
