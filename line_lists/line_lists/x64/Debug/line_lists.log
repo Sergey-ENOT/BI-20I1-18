@@ -1,0 +1,3 @@
+﻿  line_lists.cpp
+D:\visual studio\repos\line_lists\line_lists\line_lists.cpp(53,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  line_lists.vcxproj -> D:\visual studio\repos\line_lists\x64\Debug\line_lists.exe
