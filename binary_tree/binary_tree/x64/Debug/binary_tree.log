@@ -1,0 +1,5 @@
+﻿  binary_tree.cpp
+D:\visual studio\repos\binary_tree\binary_tree\binary_tree.cpp(78,18): warning C4101: temp: неиспользованная локальная переменная
+D:\visual studio\repos\binary_tree\binary_tree\binary_tree.cpp(122,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\visual studio\repos\binary_tree\binary_tree\binary_tree.cpp(127,18): warning C4101: del_item: неиспользованная локальная переменная
+  binary_tree.vcxproj -> D:\visual studio\repos\binary_tree\x64\Debug\binary_tree.exe
