@@ -15,23 +15,29 @@ int fibonacci(int number) {
     return fibonacci(number - 1) + fibonacci(number - 2);
 }
 
-int main()
-{
-    setlocale(0, "");
+//способ через цикл с оп-ным количеством чисел
+void fibonacci_cycle(int c) {
+    int a = 0;
+    int b = 1;
+    int i = 0;
+    cout << a << " " << b << " ";
+    while (i < c - 2) {
+        i++;
+        if (i <= c - 2) {
+            a = a + b;
+            cout << a << " ";
+            i++;
+            if (i <= c - 2) {
+                b = b + a;
+                cout << b << " ";
+            }
+        }
 
-    cout << "Введите количество чисел фибоначчи: ";
-    int position;
-    cin >> position;
-    for (int count = 0; count < position; count++) {
-        std::cout << fibonacci(count) << " ";
     }
+}
 
-    cout << "\n";
- 
-    // способ через цикл
-    cout << "Введите ограничение по числам Фибоначчи: ";
-    int lim;
-    cin >> lim;
+//способ с предельным числом
+void fibonacci_limit_of_number(int lim) {
     int d = 0;
     int e = 1;
     int counter = 1;
@@ -43,11 +49,67 @@ int main()
         e = e + d;
         if (e <= lim) {   //если последнее из двух чисел меньше lim, то выводим оба
             cout << d << " " << e << " ";
-        } else if (d <= lim){ //если последнее из двух больше lim, а первое меньше, то выводим первое
+        }
+        else if (d <= lim) { //если последнее из двух больше lim, а первое меньше, то выводим первое
             cout << d;
-        } else {    //если оба больше, то прерываем цикл
+        }
+        else {    //если оба больше, то прерываем цикл
             flag = false;
         }
+    }
+    
+}
+
+int main()
+{
+    setlocale(0, "");
+    bool flag = true;
+    while (flag) {
+        bool identifier = true;
+        while (identifier) {
+            cout << "1. Вывод чисел Фибоначчи через рекурсию\n2. Вывод чисел через цикл\n3. Вывод чисел до определённого предела" << endl;
+            cout << "Выберите необходимое действие: ";
+            int user_answer;
+            cin >> user_answer;
+            switch (user_answer) {
+                case 1:
+                    cout << "\nВведите количество чисел фибоначчи(рекурсия): ";
+                    int position;
+                    cin >> position;
+                    for (int count = 0; count < position; count++) {
+                        std::cout << fibonacci(count) << " ";
+                    }
+                    cout << "\n";
+                    identifier = false;
+                    break;
+                case 2:
+                    cout << "\nВведите количество выводимых чисел фибоначчи(цикл): ";
+                    int c;
+                    cin >> c;
+                    fibonacci_cycle(c);
+                    cout << "\n";
+                    identifier = false;
+                    break;
+                case 3:
+                    cout << "\nВведите ограничение по числам Фибоначчи: ";
+                    int lim;
+                    cin >> lim;
+                    fibonacci_limit_of_number(lim);
+                    cout << "\n";
+                    identifier = false;
+                    break;  
+                default:
+                    cout << "\nТакого варианта нет" << "\n" << endl;
+                    cin.clear();
+            }
+        }
+        cout << "\nЖелаете продолжить?[y/n]: "; //тут надо бы поставить цикл с флагом на проверку ввода и проверки на ввод строк везде, но лень
+        string answer;
+        cin >> answer;
+        if (answer == "n") {                    //также буквы уводят циклы в бесконечность, игнорируя проверки
+            flag = false;
+        } 
+        cin.clear();
     }
     return 0;
 }
