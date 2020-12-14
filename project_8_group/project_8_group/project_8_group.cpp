@@ -87,7 +87,7 @@ char getOperand(char& operand) {
         std::cout << "Введите операцию: ";
         std::cin >> operand;
         std::cin.ignore(32767, '\n');
-        if (operand == '+' || operand == '/' || operand == '-' || operand == '*' || operand == '**' || operand == '!' || operand == '%') {
+        if ((operand == '+' || operand == '/' || operand == '-' || operand == '*' || operand == '**' || operand == '!' || operand == '%')) {
             return operand;
         }
         std::cout << "Введите правильный знак операции" << std::endl;
@@ -552,20 +552,64 @@ int main()
         if (num1a[0] == 'e') {
             exit(0);
         }
-        getNumber2(num2a, symbol_2);  
+        getNumber2(num2a, symbol_2);
         switch (operand) {
         case '+':
             if (symbol_1 == '+' && symbol_2 == '+') {
                 addition(num1a, num2a, result);
             }
+            else if (symbol_1 == '+' && symbol_2 == '-') {
+                subtraction(num1a, num2a, result);
+            }
+            else if (symbol_1 == '-' && symbol_2 == '-') {
+                addition(num1a, num2a, result);
+                result.push_back('m');
+            }
+            else if (symbol_1 == '-' && symbol_2 == '+') {
+                int flag = comparing(num1a, num2a);
+                if (flag == 1) {
+                    subtraction(num1a, num2a, result);
+                    result.push_back('m');
+                }
+                else if (flag == 2) {
+                    subtraction(num2a, num1a, result);
+                }
+                else if (flag == 3) {
+                    result = { 0 };
+                }
+            }
             break;
         case '-':
+            if (symbol_1 == '+' && symbol_2 == '+') {
+                subtraction(num1a, num2a, result);
+            }
             break;
         case '*':
+            if ((symbol_1 == '-' && symbol_2 == '-') || (symbol_1 == '+' && symbol_2 == '+')) {
+                multiplication(num1a, num2a, result);
+            }
+            else {
+                multiplication(num1a, num2a, result);
+                result.push_back('m');
+            }
             break;
         case '/':
+            if ((symbol_1 == '-' && symbol_2 == '-') || (symbol_1 == '+' && symbol_2 == '+')) {
+                integer_division(num1a, num2a, result);
+            }
+            else {
+                integer_division(num1a, num2a, result);
+                result.push_back('m');
+            }
             break;
         case '%':
+            if ((symbol_1 == '-' && symbol_2 == '-') || (symbol_1 == '+' && symbol_2 == '+')) {
+                remainder_division(num1a, num2a, result);
+            }
+            else {
+                remainder_division(num1a, num2a, result);
+                result.push_back('m');
+            }
             //код без break
         }
         //calc(num1a, operand, num2a, result);
