@@ -5,284 +5,280 @@
 #include <vector>
 #include <cmath>
 #include <string>
+#include "GetOperand.h"
+#include "GetNumber1.h"
+#include "GetNumber2.h"
+#include "TTI.h"
+#include "comparing.h"
+#include "comparing_multiplication.h"
+#include "comparing_division.h"
+#include "addition.h"
 
 using namespace std;
 
-vector<char> getNumber1(vector<char> &number, char& symbol) {
-    //todo добавить считывание минуса и плюса в начале числа.
-    //todo реализовать возможность введения отрицательных чисел.
-    bool condition = true;
-    while (condition) {
-        std::cout << "Введите число: ";
-        string Number;
-        getline(cin, Number);
-        if (Number == "exit") {
-            number.push_back('e');
-            condition = false;
-            break;
-        }
-        for (int i = Number.length() - 1; i >= 0; i--) {
-            if (Number[i] == '0' || Number[i] == '1' || Number[i] == '2' || Number[i] == '3' ||
-                Number[i] == '4' || Number[i] == '5' || Number[i] == '6' || Number[i] == '7' ||
-                Number[i] == '8' || Number[i] == '9') {
-                number.push_back(Number[i]);
-                if (i == 0) {
-                    condition = false;
-                }
-            }
-            else {
-                if (i == 0 && Number[i] == '-') {
-                    symbol = '-';
-                    condition = false;
-                }
-                else {
-                    cout << "Вы ввели неправильное число" << endl;
-                    number.clear();
-                    break;
-                }
-            }
-        }
-    }
-    cout << "\n";
-    return number;
-}
+//vector<char> getNumber1(vector<char> &number, char& symbol) {
+//    //todo добавить считывание минуса и плюса в начале числа.
+//    //todo реализовать возможность введения отрицательных чисел.
+//    bool condition = true;
+//    while (condition) {
+//        std::cout << "Введите первое число: ";
+//        string Number;
+//        getline(cin, Number);
+//        if (Number == "exit") {
+//            number.push_back('e');
+//            condition = false;
+//            break;
+//        }
+//        for (int i = Number.length() - 1; i >= 0; i--) {
+//            if (Number[i] == '0' || Number[i] == '1' || Number[i] == '2' || Number[i] == '3' ||
+//                Number[i] == '4' || Number[i] == '5' || Number[i] == '6' || Number[i] == '7' ||
+//                Number[i] == '8' || Number[i] == '9') {
+//                number.push_back(Number[i]);
+//                if (i == 0) {
+//                    condition = false;
+//                }
+//            }
+//            else {
+//                if (i == 0 && Number[i] == '-') {
+//                    symbol = '-';
+//                    condition = false;
+//                }
+//                else {
+//                    cout << "Вы ввели неправильное число" << endl;
+//                    number.clear();
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    cout << "\n";
+//    return number;
+//}
 
-vector<char> getNumber2(vector<char>& number, char& symbol) {
-    //todo добавить считывание минуса и плюса в начале числа.
-    //todo реализовать возможность введения отрицательных чисел.
-    bool condition = true;
-    while (condition) {
-        std::cout << "Введите число: ";
-        string Number;
-        getline(cin, Number);
-        for (int i = Number.length() - 1; i >= 0; i--) {
-            //if (i == 0 && Number[i] = '-')
-            if (Number[i] == '0' || Number[i] == '1' || Number[i] == '2' || Number[i] == '3' ||
-                Number[i] == '4' || Number[i] == '5' || Number[i] == '6' || Number[i] == '7' ||
-                Number[i] == '8' || Number[i] == '9') {
-                number.push_back(Number[i]);
-                if (i == 0) {
-                    condition = false;
-                }
-            }
-            else {
-                if (i == 0 && Number[i] == '-') {
-                    symbol = '-';
-                    condition = false;
-                }
-                else {
-                    cout << "Вы ввели неправильное число" << endl;
-                    number.clear();
-                    break;
-                }
-            }
-        }
-    }
-    cout << "\n";
-    return number;
-}
+//vector<char> getNumber2(vector<char>& number, char& symbol) {
+//    //todo добавить считывание минуса и плюса в начале числа.
+//    //todo реализовать возможность введения отрицательных чисел.
+//    bool condition = true;
+//    while (condition) {
+//        std::cout << "Введите второе число: ";
+//        string Number;
+//        getline(cin, Number);
+//        for (int i = Number.length() - 1; i >= 0; i--) {
+//            //if (i == 0 && Number[i] = '-')
+//            if (Number[i] == '0' || Number[i] == '1' || Number[i] == '2' || Number[i] == '3' ||
+//                Number[i] == '4' || Number[i] == '5' || Number[i] == '6' || Number[i] == '7' ||
+//                Number[i] == '8' || Number[i] == '9') {
+//                number.push_back(Number[i]);
+//                if (i == 0) {
+//                    condition = false;
+//                }
+//            }
+//            else {
+//                if (i == 0 && Number[i] == '-') {
+//                    symbol = '-';
+//                    condition = false;
+//                }
+//                else {
+//                    cout << "Вы ввели неправильное число" << endl;
+//                    number.clear();
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    cout << "\n";
+//    return number;
+//}
 
-char getOperand(char& operand) {
-    while (true) {
-        std::cout << "Введите операцию: ";
-        std::cin >> operand;
-        std::cin.ignore(32767, '\n');
-        if ((operand == '+' || operand == '/' || operand == '-' || operand == '*' || operand == '**' || operand == '!' || operand == '%')) {
-            return operand;
-        }
-        std::cout << "Введите правильный знак операции" << std::endl;
-    }
-    return operand;
-}
 
-int translate_to_int(char a) {
-    if (a == '0') {
-        return 0;
-    }
-    if (a == '1') {
-        return 1;
-    }
-    if (a == '2') {
-        return 2;
-    }
-    if (a == '3') {
-        return 3;
-    }
-    if (a == '4') {
-        return 4;
-    }
-    if (a == '5') {
-        return 5;
-    }
-    if (a == '6') {
-        return 6;
-    }
-    if (a == '7') {
-        return 7;
-    }
-    if (a == '8') {
-        return 8;
-    }
-    if (a == '9') {
-        return 9;
-    }
-}
+//int translate_to_int(char a) {
+//    if (a == '0') {
+//        return 0;
+//    }
+//    if (a == '1') {
+//        return 1;
+//    }
+//    if (a == '2') {
+//        return 2;
+//    }
+//    if (a == '3') {
+//        return 3;
+//    }
+//    if (a == '4') {
+//        return 4;
+//    }
+//    if (a == '5') {
+//        return 5;
+//    }
+//    if (a == '6') {
+//        return 6;
+//    }
+//    if (a == '7') {
+//        return 7;
+//    }
+//    if (a == '8') {
+//        return 8;
+//    }
+//    if (a == '9') {
+//        return 9;
+//    }
+//}
 
-int comparing(vector<char>& num1, vector<char>& num2) {
-    int number1, number2;
-    int length_num1 = num1.size();
-    int length_num2 = num2.size();
-    int flag = 0;
-    int counter_equality;
-    if (length_num1 > length_num2) {                            //если первое больше второго, то вставка во второй
-        for (int i = 0; i < length_num1 - length_num2; i++) {   //вектор нулей до выравнивания
-            num2.push_back(0);
-            flag = 1;
-        }
-    }
-    else if (length_num1 < length_num2) {                     //если второй больше, то вставка в первый вектор
-        for (int i = 0; i < length_num2 - length_num1; i++) { //нулей до выравнивания                   
-            num1.push_back(0);
-            flag = 2;
-        }
-    }
-    else {
-        for (int i = num1.size() - 1; i >= 0; i--) {         //если равны по количеству символов
-            number1 = translate_to_int(num1[i]);
-            number2 = translate_to_int(num2[i]);
-            if (number1 > number2) {                         //у первого числа быстрее встретилось большее - по алгоритму ->
-                flag = 1;                                    // -> для num1 > num2
-                break;
-            }
-            else if (number1 < number2) {                    //иначе - по алгоритму для num1 < num2
-                flag = 2;
-                break;
-            }
-            else if (number1 == number2) {
-                if (i == 0) {
-                    flag = 3;
-                }
-            }
-        }
-    }
-    return flag;
-}
+//int comparing(vector<char>& num1, vector<char>& num2) {
+//    int number1, number2;
+//    int length_num1 = num1.size();
+//    int length_num2 = num2.size();
+//    int flag = 0;
+//    int counter_equality;
+//    if (length_num1 > length_num2) {                            //если первое больше второго, то вставка во второй
+//        for (int i = 0; i < length_num1 - length_num2; i++) {   //вектор нулей до выравнивания
+//            num2.push_back(0);
+//            flag = 1;
+//        }
+//    }
+//    else if (length_num1 < length_num2) {                     //если второй больше, то вставка в первый вектор
+//        for (int i = 0; i < length_num2 - length_num1; i++) { //нулей до выравнивания                   
+//            num1.push_back(0);
+//            flag = 2;
+//        }
+//    }
+//    else {
+//        for (int i = num1.size() - 1; i >= 0; i--) {         //если равны по количеству символов
+//            number1 = translate_to_int(num1[i]);
+//            number2 = translate_to_int(num2[i]);
+//            if (number1 > number2) {                         //у первого числа быстрее встретилось большее - по алгоритму ->
+//                flag = 1;                                    // -> для num1 > num2
+//                break;
+//            }
+//            else if (number1 < number2) {                    //иначе - по алгоритму для num1 < num2
+//                flag = 2;
+//                break;
+//            }
+//            else if (number1 == number2) {
+//                if (i == 0) {
+//                    flag = 3;
+//                }
+//            }
+//        }
+//    }
+//    return flag;
+//}
 
-int comparing_multiplication(vector<char>& num1, vector<char>& num2) {
-    int number1, number2;
-    int flag = 0;
-    int counter_null_num1 = 0;
-    int counter_null_num2 = 0;
-    for (int i = 0; i < num1.size(); i++) {
-        number1 = translate_to_int(num1[i]);
-        if (num1[i] == '0') {
-            counter_null_num1 += 1;
-        }
-    }
-    for (int i = 0; i < num2.size(); i++) {
-        number2 = translate_to_int(num2[i]);
-        if (num2[i] == '0') {
-            counter_null_num2 += 1;
-        }
-    }
-    if (counter_null_num1 == num1.size() || counter_null_num2 == num2.size()) {
-        flag = 1;
-    }
-    else if (num1.size() > num2.size()) {
-        flag = 2;
-    }
-    else if (num1.size() < num2.size()) {
-        vector<char> changer;
-        changer = num2;
-        num2 = num1;
-        num1 = changer;
-        flag = 2;
-    }
-    else if (num1.size() == num2.size()) {
-        flag = 2;
-    }
-    return flag;
-}
+//int comparing_multiplication(vector<char>& num1, vector<char>& num2) {
+//    int number1, number2;
+//    int flag = 0;
+//    int counter_null_num1 = 0;
+//    int counter_null_num2 = 0;
+//    for (int i = 0; i < num1.size(); i++) {
+//        number1 = translate_to_int(num1[i]);
+//        if (num1[i] == '0') {
+//            counter_null_num1 += 1;
+//        }
+//    }
+//    for (int i = 0; i < num2.size(); i++) {
+//        number2 = translate_to_int(num2[i]);
+//        if (num2[i] == '0') {
+//            counter_null_num2 += 1;
+//        }
+//    }
+//    if (counter_null_num1 == num1.size() || counter_null_num2 == num2.size()) {
+//        flag = 1;
+//    }
+//    else if (num1.size() > num2.size()) {
+//        flag = 2;
+//    }
+//    else if (num1.size() < num2.size()) {
+//        vector<char> changer;
+//        changer = num2;
+//        num2 = num1;
+//        num1 = changer;
+//        flag = 2;
+//    }
+//    else if (num1.size() == num2.size()) {
+//        flag = 2;
+//    }
+//    return flag;
+//}
 
-int comparing_division(vector<char>& num1, vector<char>& num2) {
-    int number1, number2;
-    int flag = 0;
-    int counter_null_num1 = 0;
-    int counter_null_num2 = 0;
-    for (int i = 0; i < num1.size(); i++) {
-        number1 = translate_to_int(num1[i]);
-        if (num1[i] == '0') {
-            counter_null_num1 += 1;
-        }
-    }
-    for (int i = 0; i < num2.size(); i++) {
-        number2 = translate_to_int(num2[i]);
-        if (num2[i] == '0') {
-            counter_null_num2 += 1;
-        }
-    } if (num1.size() == counter_null_num1) {
-        flag = 1;
-    }
-    else if (num2.size() == counter_null_num2) {
-        flag = 2;
-    }
-    else if (num1.size() > num2.size()) {
-        flag = 3;
-    }
-    else if (num1.size() < num2.size()) {
-        flag = 4;
-    }
-    else {
-        for (int i = num1.size() - 1; i >= 0; i--) {         //если равны по количеству символов
-            number1 = translate_to_int(num1[i]);
-            number2 = translate_to_int(num2[i]);
-            if (number1 > number2) {                         //у первого числа быстрее встретилось большее - по алгоритму ->
-                flag = 3;                                    // -> для num1 > num2
-                break;
-            }
-            else if (number1 < number2) {                    //иначе - по алгоритму для num1 < num2
-                flag = 4;
-                break;
-            }
-            else if (number1 == number2) {
-                if (i == 0) {
-                    flag = 5;
-                }
-            }
-        }
-    }
-    return flag;
-}
+//int comparing_division(vector<char>& num1, vector<char>& num2) {
+//    int number1, number2;
+//    int flag = 0;
+//    int counter_null_num1 = 0;
+//    int counter_null_num2 = 0;
+//    for (int i = 0; i < num1.size(); i++) {
+//        number1 = translate_to_int(num1[i]);
+//        if (num1[i] == '0') {
+//            counter_null_num1 += 1;
+//        }
+//    }
+//    for (int i = 0; i < num2.size(); i++) {
+//        number2 = translate_to_int(num2[i]);
+//        if (num2[i] == '0') {
+//            counter_null_num2 += 1;
+//        }
+//    } if (num1.size() == counter_null_num1) {
+//        flag = 1;
+//    }
+//    else if (num2.size() == counter_null_num2) {
+//        flag = 2;
+//    }
+//    else if (num1.size() > num2.size()) {
+//        flag = 3;
+//    }
+//    else if (num1.size() < num2.size()) {
+//        flag = 4;
+//    }
+//    else {
+//        for (int i = num1.size() - 1; i >= 0; i--) {         //если равны по количеству символов
+//            number1 = translate_to_int(num1[i]);
+//            number2 = translate_to_int(num2[i]);
+//            if (number1 > number2) {                         //у первого числа быстрее встретилось большее - по алгоритму ->
+//                flag = 3;                                    // -> для num1 > num2
+//                break;
+//            }
+//            else if (number1 < number2) {                    //иначе - по алгоритму для num1 < num2
+//                flag = 4;
+//                break;
+//            }
+//            else if (number1 == number2) {
+//                if (i == 0) {
+//                    flag = 5;
+//                }
+//            }
+//        }
+//    }
+//    return flag;
+//}
 
-void addition(vector<char>& num1, vector<char>& num2, vector<char>& result) {
-    int number1, number2, iterator;
-    int flag = comparing(num1, num2);
-    if (flag != 0) {
-        iterator = 0;
-        for (int i = 0; i < num1.size(); i++) {
-            number1 = translate_to_int(num1[i]);
-            number2 = translate_to_int(num2[i]);
-            if (number1 + number2 + iterator < 10) {              //если сумма меньше 10, то просто пуш в result числа
-                int summ = number1 + number2 + iterator;
-                iterator = 0;
-                result.push_back(summ);
-            }
-            else if (number1 + number2 + iterator >= 10) {      //если сумма >= 10, то пуш отстатка от вычитания 10
-                if (i == num1.size() - 1) {
-                    int summ = number1 + number2 + iterator;
-                    iterator = 1;                                 // и запись увеличения следующего разряда в iterator
-                    result.push_back(summ - 10);
-                    result.push_back(iterator);
-                }
-                else {
-                    int summ = number1 + number2 + iterator;
-                    iterator = 1;
-                    result.push_back(summ - 10);
-                }
-            }
-        }
-    }
-}
+//void addition(vector<char>& num1, vector<char>& num2, vector<char>& result) {
+//    int number1, number2, iterator;
+//    int flag = comparing(num1, num2);
+//    if (flag != 0) {
+//        iterator = 0;
+//        for (int i = 0; i < num1.size(); i++) {
+//            number1 = translate_to_int(num1[i]);
+//            number2 = translate_to_int(num2[i]);
+//            if (number1 + number2 + iterator < 10) {              //если сумма меньше 10, то просто пуш в result числа
+//                int summ = number1 + number2 + iterator;
+//                iterator = 0;
+//                result.push_back(summ);
+//            }
+//            else if (number1 + number2 + iterator >= 10) {      //если сумма >= 10, то пуш отстатка от вычитания 10
+//                if (i == num1.size() - 1) {
+//                    int summ = number1 + number2 + iterator;
+//                    iterator = 1;                                 // и запись увеличения следующего разряда в iterator
+//                    result.push_back(summ - 10);
+//                    result.push_back(iterator);
+//                }
+//                else {
+//                    int summ = number1 + number2 + iterator;
+//                    iterator = 1;
+//                    result.push_back(summ - 10);
+//                }
+//            }
+//        }
+//    }
+//}
 
 void subtraction(vector<char>& num1, vector<char>& num2, vector<char>& result) {
     int number1, number2, iterator;
@@ -447,27 +443,6 @@ void remainder_division(vector<char>& num1, vector<char>& num2, vector<char>& re
     }
 }
 
-void show_result(vector<char>& number);
-
-void calc(vector<char>& num1, char op, vector<char>& num2, vector<char>& result) {
-    int number1, number2, iterator;
-    if (op == '+') {   
-        addition(num1, num2, result);
-    } 
-    if (op == '-') {
-        subtraction(num1, num2, result);
-    }
-    if (op == '*') {
-        multiplication(num1, num2, result);
-    }
-    if (op == '/') {
-        integer_division(num1, num2, result);
-    }
-    if (op == '%') {
-        remainder_division(num1, num2, result);
-    }
-}
-
 //функция вывода результатного вектора
 void show_result(vector<char>& number) {
     int counter_equality = 0;
@@ -549,9 +524,6 @@ int main()
         char symbol_1 = '+';
         char symbol_2 = '+';
         getNumber1(num1a, symbol_1);
-        if (num1a[0] == 'e') {
-            exit(0);
-        }
         getNumber2(num2a, symbol_2);
         switch (operand) {
         case '+':
@@ -583,6 +555,26 @@ int main()
             if (symbol_1 == '+' && symbol_2 == '+') {
                 subtraction(num1a, num2a, result);
             }
+            else if (symbol_1 == '-' && symbol_2 == '-') {
+                int flag = comparing(num1a, num2a);
+                if (flag == 1) {
+                    subtraction(num1a, num2a, result);
+                    result.push_back('m');
+                }
+                else if (flag == 2) {
+                    subtraction(num2a, num1a, result);
+                }
+                else if (flag == 3) {
+                    result = { 0 };
+                }
+            }
+            else if (symbol_1 == '+' && symbol_2 == '-') {
+                addition(num1a, num2a, result);
+            }
+            else if (symbol_1 == '-' && symbol_2 == '+') {
+                addition(num1a, num2a, result);
+                result.push_back('m');
+            }
             break;
         case '*':
             if ((symbol_1 == '-' && symbol_2 == '-') || (symbol_1 == '+' && symbol_2 == '+')) {
@@ -610,9 +602,7 @@ int main()
                 remainder_division(num1a, num2a, result);
                 result.push_back('m');
             }
-            //код без break
         }
-        //calc(num1a, operand, num2a, result);
         cout << "\nРезультат операции: ";
         show_result(result);
         cout << "\n";
