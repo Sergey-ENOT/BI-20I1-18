@@ -1,7 +1,2 @@
-﻿  addition.cpp
-  project_8_group.cpp
-D:\visual studio\repos\project_8_group\project_8_group\project_8_group.cpp(284,27): warning C4101: iterator: неиспользованная локальная переменная
-D:\visual studio\repos\project_8_group\project_8_group\project_8_group.cpp(449,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\visual studio\repos\project_8_group\project_8_group\project_8_group.cpp(459,5): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Создание кода...
+﻿  project_8_group.cpp
   project_8_group.vcxproj -> D:\visual studio\repos\project_8_group\x64\Debug\project_8_group.exe
