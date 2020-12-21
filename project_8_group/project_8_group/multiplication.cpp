@@ -1,3 +1,4 @@
+#include <iostream>
 #include "multiplication.h"
 #include "comparing_multiplication.h"
 #include "addition.h"
